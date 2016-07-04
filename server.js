@@ -19,6 +19,10 @@ var todos = [{
 }
 ];
 
+app.get('/', function(req,res) {
+  res.send('Todos API Root');
+})
+
 app.get('/todos', function(req, res) {
   res.json(todos);
 })
