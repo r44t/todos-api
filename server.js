@@ -15,15 +15,11 @@ app.get('/todos/:id', function(req, res) {
   var todosId = parseInt(req.params.id, 10);
   var matchedId;
   var matchedId = _.findWhere(todos, {id: todosId});
-  // todos.forEach(function(todo) {
-  //   if (todosId === todo.id) {
-  //     matchedId = todo;
-  //   }
-  // });
+
   if (matchedId) {
     res.json(matchedId);
   } else {
-    res.status(404).send();
+    res.status(404).json({"Error": "there no found ID"});
   }
 })
 
@@ -37,9 +33,32 @@ app.post('/todos', function(req, res) {
   body.id = todoNextId++;
   todos.push(body);
   res.json(body);
-  
-
 });
+
+app.delete('/todos/:id', function(req, res) {
+  var todosId = parseInt(req.params.id, 10);
+  var matchedTodo = _.findWhere(todos, {id: todosId});
+
+  if (!matchedTodo) {
+    res.status(404).json({"Error": "there no found ID"});
+  } else {
+    todos = _.without(todos, matchedTodo);
+    res.json(matchedTodo);
+  }
+});
+
+app.put('/todos/:id', function(req, res) {
+  var todosId = parseInt(req.params.id, 10);
+  var matchedTodo = _.findWhere(todos, {id: todosId});
+  var body = _.pick(req.body, 'description', 'completed');
+
+  if (!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().length === 0) {
+    res.status(400).json({"Error": "there no found ID"});
+  }
+  body.description = body.description.trim();
+  todos.push(body);
+  res.json(body);
+})
 
 app.listen(PORT, function() {
   console.log('Express is Started in Port ' + PORT);
