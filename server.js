@@ -51,14 +51,27 @@ app.put('/todos/:id', function(req, res) {
   var todosId = parseInt(req.params.id, 10);
   var matchedTodo = _.findWhere(todos, {id: todosId});
   var body = _.pick(req.body, 'description', 'completed');
+  validAttribuite = {};
 
-  if (!_.isBoolean(body.completed) || !_.isString(body.description) || body.description.trim().length === 0) {
-    res.status(400).json({"Error": "there no found ID"});
+  if (!matchedTodo) {
+    res.status(404).json({"Error": "there no found ID"});
+  } 
+
+  if (body.hasOwnProperty('completed') && _.isBoolean(body.completed)) {
+    validAttribuite.completed = body.completed;
+  } else if (body.hasOwnProperty('completed')) {
+    return res.status(400).send();
   }
-  body.description = body.description.trim();
-  todos.push(body);
-  res.json(body);
-})
+
+  if (body.hasOwnProperty('description') && _.isString(body.description) && body.description.trim().length > 0) {
+    validAttribuite.description = body.description;
+  } else if (body.hasOwnProperty('description')){
+    return res.status.send();
+  }
+
+  _.extend(matchedTodo, validAttribuite);
+  res.json(matchedTodo);
+});
 
 app.listen(PORT, function() {
   console.log('Express is Started in Port ' + PORT);
