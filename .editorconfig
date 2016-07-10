@@ -9,3 +9,4 @@ charset = utf-8
 trim_trailing_whitespace = true
 insert_final_newline = true
 max_line_length = off
+// let g:EditorConfig_exec_path = 'Path to your EditorConfig Core executable'
