@@ -1,3 +1,5 @@
+//https://github.com/editorconfig/editorconfig-vim
+
 root = true
 
 [*]
@@ -10,3 +12,5 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 max_line_length = off
 // let g:EditorConfig_exec_path = 'Path to your EditorConfig Core executable'
+// jsFormat && VIM-JSBEAUTIY // https://github.com/maksimr/vim-jsbeautify
+// flatland theme
