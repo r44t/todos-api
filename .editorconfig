@@ -14,3 +14,4 @@ max_line_length = off
 // let g:EditorConfig_exec_path = 'Path to your EditorConfig Core executable'
 // jsFormat && VIM-JSBEAUTIY // https://github.com/maksimr/vim-jsbeautify
 // flatland theme
+//https://github.com/vim-airline/vim-airline
